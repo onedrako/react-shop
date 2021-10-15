@@ -1,8 +1,8 @@
-name: Build and Deploy
-on: [push]
-jobs:
+name: Build and Deploy   # nombre del trabajo a ejecutarse
+on: [push]               # donde, cuando se haga un push
+jobs:                    #Los trabajos previos a realizar para preparar el flujo de trabajo
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest         #servidor ubuntu
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
@@ -16,4 +16,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: build # The folder the action should deploy.
+          folder: dist # The folder the action should deploy.
