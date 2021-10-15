@@ -1,8 +1,17 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import OrderItem from '../components/OrderItem';
 import '../styles/MyOrder.scss';
+import {AppContext} from "../context/AppContext"
+
+
 
 const MyOrder = () => {
+	const {state} = useContext(AppContext)
+	const sumtotal = () => {
+		const reducer = (accumulator, currentValue) => accumulator + currentValue.price
+		const sum = state.cart.reduce(reducer, 0)
+		return sum
+	}
 	return (
 		<aside className="MyOrder">
 			<div className="title-container">
@@ -10,12 +19,14 @@ const MyOrder = () => {
 				<p className="title">My order</p>
 			</div>
 			<div className="my-order-content">
-				<OrderItem />
+			{state.cart.map(product => 
+				<OrderItem product = {product} key={`orderItem-${product.id}`} />
+				)}
 				<div className="order">
 					<p>
 						<span>Total</span>
 					</p>
-					<p>$560.00</p>
+					<p>{sumtotal()}</p>
 				</div>
 				<button className="primary-button">
 					Checkout
@@ -25,4 +36,4 @@ const MyOrder = () => {
 	);
 }
 
-export default MyOrder;
+export {MyOrder};
